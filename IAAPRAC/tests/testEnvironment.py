@@ -17,7 +17,7 @@ class EnvironmentTestCase(unittest.TestCase):
         self.assertEqual(1/2, 0.5, "Python 3 test case")
     
     def testNumPy(self):
-        self.assertEqual(numpy.mean([1,2,5]), 8/3, "NumPy dependency test")
+        self.assertEqual(numpy.mean([1,2.5]), 1.75, "NumPy dependency test")
 
     def testSciPy(self):
         self.assertEqual(linalg.det([[1,2],[3,4]]), -2, "Scipy dependency test")
