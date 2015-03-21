@@ -1,0 +1,10 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 >>> docs = textos('C:\\\\textos\\\\*.txt')\
+\
+>>> docs[0]\
+\{'arrhythmogenic': [3, 2, 11, 135], 'catecholaminergic': [1, 147], 'significant': [1, 80], 'family': [1, 52], 'providers': [1, 67], 'abridge': [1, 125], 'correlations': [1, 154], 'outcomes': [1, 49], 'helped': [1, 14], 'namely': [1, 137], 'determined': [1, 100], 'decisions': [1, 72], 'occur': [1, 85], 'recognition': [1, 105], 'current': [1, 127], 'polymorphic': [1, 148], 'realm': [1, 33], 'knowledge': [1, 128], 'mutated': [1, 6], 'implementation': [1, 114], 'technology': [1, 92], 'coupled': [1, 93], 'pathogenesis': [1, 151], 'research': [1, 1], 'better': [1, 55], 'their': [9, 8, 7, 6, 5, 18, 48, 57, 65, 74], 'genetic': [3, 2, 35, 131], 'clinical': [1, 87], 'identification': [1, 4], 'treatment': [1, 116], 'which': [1, 110], 'inherited': [3, 2, 10, 134], 'forward': [1, 15], 'progress': [3, 2, 26, 79], 'tachycardia': [1, 150], 'fatal': [1, 108], 'cause': [1, 9], 'possible': [1, 40], 'potentially': [1, 107], 'practice': [1, 88], 'genotypephenotype': [1, 153], 'diseases': [5, 4, 3, 12, 109, 136], 'advances': [1, 90], 'genes': [1, 7], 'background': [1, 132], 'symptomatic': [1, 44], 'understanding': [3, 2, 16, 97], 'pathophysiology': [1, 19], 'genetically': [1, 99], 'assists': [1, 102], 'understand': [1, 56], 'discussed': [1, 157], 'members': [1, 53], 'improving': [1, 96], 'article': [1, 123], 'conjunction': [1, 63], 'continued': [3, 2, 0, 78], 'earlier': [3, 2, 104, 113], 'improve': [1, 47], 'leads': [1, 111], 'short': [1, 141], 'decades': [1, 24], 'syndrome': [5, 4, 3, 140, 143, 145], 'arrhythmias': [3, 2, 36, 101], 'ventricular': [1, 149], 'patients': [1, 45], 'continue': [1, 83], 'risks': [1, 58], 'allow': [1, 60], 'brugada': [1, 144], 'changes': [1, 81]\}}
