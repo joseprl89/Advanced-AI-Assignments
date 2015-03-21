@@ -1,3 +1,3 @@
 # AAI Lab
 
-Advanced AI deliverable for a Master in Computer Engineering degree.
+Advanced AI deliverables for a Master in Computer Engineering degree.
