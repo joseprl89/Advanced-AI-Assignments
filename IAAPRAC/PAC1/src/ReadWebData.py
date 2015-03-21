@@ -15,5 +15,3 @@ def readRatings(filename="u.data"):
         dictio[userId][webId] = values
     
     return dictio
-
-# Example: import json print(json.dumps(readRatings("../data/webs.data")))
