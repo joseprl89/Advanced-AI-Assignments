@@ -59,18 +59,21 @@ for user in userData:
         similarity = euclideanSimilarityArrays(webInteractionAverage(webData[otherWebId]), mostActiveWebInteractions)
         recommendations.append({'similarity':similarity,'webId':otherWebId})
         
-    recommendations = sorted(recommendations, key=lambda k: k['similarity']) 
+    recommendations = sorted(recommendations, key=lambda k: k['similarity'], reverse=True) 
     recommendationsPerUser[user] = recommendations
 
 # Finally, iterate the recommendations, check the average location of the found issue.
 count      = 0
 sumIndexes = 0
+sumLengths = 0
 for userId in recommendationsPerUser:
     recommendations = recommendationsPerUser[userId]
     expectedFavourite = favouriteData[userId]
     indexes = [i for i,x in enumerate(recommendations) if x['webId'] == expectedFavourite]
     if len(indexes) == 1:
         sumIndexes = sumIndexes + indexes[0]
+        sumLengths = sumLengths + len(recommendations)
         count = count + 1
 
-print("Average index of the favourite is {}/{} = {}".format(sumIndexes,count,sumIndexes/count))
+print("Average index of the favourite is {} and the avg length is {}"
+      .format(sumIndexes/count, sumLengths/count))
