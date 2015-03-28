@@ -28,17 +28,17 @@ def kmeans_dictio(dictionary, k, maxit, similarity = euclideanSimilarity):
     # On each iteration it assigns points to the centroids and computes
     # new centroids
     for iteration in range(maxit):
-        print('Iteration {}'.format(iteration + 1))
+        # print('Iteration {}'.format(iteration + 1))
         
         # Assign points to the closest centroids
         for webId in dictionary:
             simils = list(map(similarity,repeat(dictionary[webId],k), centroids))
             assignment[webId] = simils.index(max(simils))
-            print("Assigning web {} to centroid {}".format(webId,assignment[webId]))
+            # print("Assigning web {} to centroid {}".format(webId,assignment[webId]))
 
         # If there are no changes in the assignment then finish
         if previous == assignment:
-            print("Centroids not updated. Leaving.")
+            print("Centroids not updated at iteration {}. Leaving.".format(iteration))
             break
         previous.update(assignment)
 
@@ -46,7 +46,7 @@ def kmeans_dictio(dictionary, k, maxit, similarity = euclideanSimilarity):
         values    = {x : {} for x in range(k)}
         counters = {x : {} for x in range(k)}
         for webId in dictionary:
-            print("Computing centroid for web {}".format(webId))
+            # print("Computing centroid for web {}".format(webId))
             group = assignment[webId]
             for userId in dictionary[webId]:
                 if not userId in values[group]:
@@ -58,7 +58,7 @@ def kmeans_dictio(dictionary, k, maxit, similarity = euclideanSimilarity):
                 values[group][userId] = [x + y for x, y in zip(values[group][userId], dictionary[webId][userId])]
                 counters[group][userId] = counters[group][userId] + 1
 
-        print("Computing new centroids")
+        # print("Computing new centroids")
         # Compute means (new centroids)
         centroids = []
         for group in values:
@@ -70,5 +70,5 @@ def kmeans_dictio(dictionary, k, maxit, similarity = euclideanSimilarity):
 
         if None in centroids: break
 
-    print("Done.")
+    # print("Done.")
     return (assignment, centroids)
