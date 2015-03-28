@@ -6,9 +6,9 @@ from PAC1.src.ReadWebData import readFavouriteData
 
 from PAC1.src.kmeans_dictio import kmeans_dictio
 
-from PAC1.src.userRecommendation import mostActiveWebsite
-from PAC1.src.userRecommendation import euclideanSimilarityArrays
+from PAC1.src.userRecommendation import pearsonCoefficientWithArrays
 from PAC1.src.userRecommendation import webInteractionAverage
+from PAC1.src.userRecommendation import mostActiveWebsite
 
 # Read the data
 webData = readWebData("../data/webs.data")
@@ -41,7 +41,8 @@ recommendationsPerUser = {}
 
 for user in userData:
     websVisited = userData[user]
-    userInteractionAverage = webInteractionAverage(websVisited)
+    # userInteractionAverage = webInteractionAverage(websVisited)
+    _,mostInteractionsByUser = mostActiveWebsite(websVisited)
         
     # Take the other webs in the group that are not visited by the user.
     websNotVisitedByUser = [web for web in webData if not web in websVisited]
@@ -55,7 +56,7 @@ for user in userData:
     # Calculate Euclidean similarity for each of the other webs
     # compared to the user's favorite web (could also use the average)
     for otherWebId in websNotVisitedByUser:
-        similarity = euclideanSimilarityArrays(webInteractionAverage(webData[otherWebId]), userInteractionAverage)
+        similarity = pearsonCoefficientWithArrays(webInteractionAverage(webData[otherWebId]), mostInteractionsByUser)
         recommendations.append({'similarity':similarity,'webId':otherWebId})
         
     recommendations = sorted(recommendations, key=lambda k: k['similarity'], reverse=True) 

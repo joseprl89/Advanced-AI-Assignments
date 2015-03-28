@@ -1,5 +1,24 @@
 from math import sqrt
 
+def pearsonCoefficientWithArrays(array1,array2):
+    # The arrays will have the same data, so no need to check for commmons
+    
+    # Compute the means of each array
+    mean1 = sum(array1)/len(array1)
+    mean2 = sum(array2)/len(array2)
+
+    # Compute numerator and denominator
+    num  = sum([(array1[i]-mean1)*(array2[i]-mean2) for i in range(len(array1))])
+    den1 = sqrt(sum([pow(array1[i]-mean1, 2) for i in range(len(array1))]))
+    den2 = sqrt(sum([pow(array2[i]-mean2, 2) for i in range(len(array1))]))
+    den  = den1*den2
+
+    # Compute the coefficient if possible or return zero
+    if den==0:
+        return 0
+
+    return num/den
+
 # calculates the euclidean similarity between two arrays.
 def euclideanSimilarityArrays(array1, array2):
     squaredSum = 0
