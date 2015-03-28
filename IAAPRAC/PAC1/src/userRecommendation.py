@@ -9,17 +9,17 @@ def euclideanSimilarityArrays(array1, array2):
     
     return 1/(1+sqrt(squaredSum))
 
-# webData is a dictionary of { userId : [interactions] }
+# webData is a dictionary of { ids : [interactions] }
 # The result is the average of all the [interactions] arrays
-def webInteractionAverage(webData):
+def webInteractionAverage(interactionsDictionary):
     interactions = []
     count = 0
-    for userId in webData:
+    for index in interactionsDictionary:
         if len (interactions) == 0:
-            interactions = webData[userId]
+            interactions = interactionsDictionary[index]
             count = 1
         else:
-            interactions = [x + y for x, y in zip(interactions, webData[userId])]
+            interactions = [x + y for x, y in zip(interactions, interactionsDictionary[index])]
             count = count + 1
     
     if count == 0:

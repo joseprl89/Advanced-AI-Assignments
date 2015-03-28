@@ -41,13 +41,12 @@ recommendationsPerUser = {}
 
 for user in userData:
     websVisited = userData[user]
-    mostActiveWebId, mostActiveWebInteractions = mostActiveWebsite(websVisited)
-    websiteGroup = assignment[mostActiveWebId]
-    
+    userInteractionAverage = webInteractionAverage(websVisited)
+        
     # Take the other webs in the group that are not visited by the user.
-    otherWebsInGroup = [web for web in webData if not web in websVisited]
+    websNotVisitedByUser = [web for web in webData if not web in websVisited]
     
-    if len(otherWebsInGroup) == 0:
+    if len(websNotVisitedByUser) == 0:
         print("No webs in group not visited by user. Should look in all the other groups.")
         continue
     
@@ -55,8 +54,8 @@ for user in userData:
     
     # Calculate Euclidean similarity for each of the other webs
     # compared to the user's favorite web (could also use the average)
-    for otherWebId in otherWebsInGroup:
-        similarity = euclideanSimilarityArrays(webInteractionAverage(webData[otherWebId]), mostActiveWebInteractions)
+    for otherWebId in websNotVisitedByUser:
+        similarity = euclideanSimilarityArrays(webInteractionAverage(webData[otherWebId]), userInteractionAverage)
         recommendations.append({'similarity':similarity,'webId':otherWebId})
         
     recommendations = sorted(recommendations, key=lambda k: k['similarity'], reverse=True) 
