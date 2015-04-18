@@ -14,7 +14,7 @@ def pca(X):
     for i in range(num_data):
         X[i] -= mean_X
     
-    if dim>100:
+    if dim > 100:
         print('PCA - compact trick used')
         M = dot(X,X.T) #covariance matrix
         e,EV = linalg.eigh(M) #eigenvalues and eigenvectors
