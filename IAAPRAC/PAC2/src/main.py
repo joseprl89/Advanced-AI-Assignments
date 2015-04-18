@@ -59,10 +59,8 @@ def exercise1():
     
     
     # Project data to the new base using only a subset of the eigenvectors data
-    for eigenvectorIndexUsed in range(d.shape[1]):
-        # Avoid 0 values
-        if eigenvectorIndexUsed == 0:
-            continue
+    for idx in range(d.shape[1]):
+        eigenvectorIndexUsed = idx + 1
        
         # Proyectar datos a la nueva base definida por los dos
         # vectores propios con mayor valor propio (espacio PCA 2D)
