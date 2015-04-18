@@ -62,14 +62,13 @@ def exercise1():
     for idx in range(d.shape[1]):
         eigenvectorIndexUsed = idx + 1
        
-        # Proyectar datos a la nueva base definida por los dos
-        # vectores propios con mayor valor propio (espacio PCA 2D)
+        # Project data
         d_PCA2 = zeros((d.shape[0],eigenvectorIndexUsed))
         for i in range(d.shape[0]):
             for j in range(eigenvectorIndexUsed):
                 d_PCA2[i,j] = dot(d1[i,:],vec_decre[:,j])
         
-        # reconstruir datos invirtiendo la proyección PCA 2D:
+        # Rebuild on partial data
         d_recon2 = zeros((d.shape[0],d.shape[1]))
         for i in range(d.shape[0]):
             d_recon2[i] = orig_means
@@ -77,15 +76,14 @@ def exercise1():
                 d_recon2[i] += d_PCA2[i,j]*vec_decre[:,j] 
 
         
-        # En general dará falso por el error introducido al descartar
-        # una componente
+        # Compare rebuilt data to initial one with relative tolerance of 0.05
         if allclose(d,d_recon2,rtol=0.05):
             print("Managed to obtain a 95% accuracy by using " + str(eigenvectorIndexUsed) + " eigenvector values")
             break
         else:
             print("Didn´t obtain a 95% accuracy by using " + str(eigenvectorIndexUsed) + " eigenvector values")
     
-        # representación gráfica de los datos:
+        # Graphic representation of the reconstruction
         fig2 = plot.figure()
         sp2 = fig2.gca(projection = '3d')
         sp2.scatter(d_recon2[:,0],d_recon2[:,1],d_recon2[:,2],c='r',marker='x')
