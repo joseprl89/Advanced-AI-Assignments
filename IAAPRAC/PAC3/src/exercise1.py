@@ -1,4 +1,5 @@
 from PAC3.src.NaiveBayes import naiveBayes;
+from PAC3.src.DecisionTree import decisionTree;
 
 # Load file
 l = list(map(lambda l: (l.strip()).split(','),
@@ -9,8 +10,30 @@ for row in l:
 
 l = [row[1:] for row in l ]
 
-# Naive bayes accuracy
-naiveBayesAccuracy, predictions = naiveBayes(l, ratioTests=5)
+ratioToTest=10
+
+######## Naive bayes 
+
+naiveBayesAccuracy, naiveBayesPredictions = naiveBayes(l, ratioTests=ratioToTest)
 
 # Print accuracy and predictions
 print('naiveBayesAccuracy. :', naiveBayesAccuracy , '%')
+
+######## Decision tree
+
+decisionTreeAccuracy,decisionTreePredictions = decisionTree(l,ratioToTest=ratioToTest)
+
+# Print accuracy and predictions
+print('decisionTreeAccuracy:', decisionTreeAccuracy, '%')
+print('decisionTreeAccuracy:', decisionTreePredictions)
+
+######## kNN
+
+
+
+######## Support vector machine Kernel 1
+
+
+######## Support vector machine Kernel 2
+
+
