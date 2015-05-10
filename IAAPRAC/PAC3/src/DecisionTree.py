@@ -86,7 +86,7 @@ def decisionTree(l, ratioToTest=3):
     
     # Construccio de l'arbre
     arbre = iteracio(classesTrain, list(zip(*train)))
-    print(arbre)
+    # print(arbre)
     
     # Classificacio
     predictions = [testEx(ex, arbre) for ex in test]

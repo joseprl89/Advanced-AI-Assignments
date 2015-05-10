@@ -70,8 +70,8 @@ def naiveBayes(l, ratioTests=3):
 # l = list(map(lambda l: (l.strip()).split(','),
 #             open('../../materials/Tema4/4.2.1/mushroom.data.txt', 'r').readlines()))
 
-# accuracy, predictions = naiveBayes(l)
+# accuracy, predictions = naiveBayes(l)
 
 # Print accuracy and predictions
-# print('Prec.:', accuracy , '%')
+# print('Prec.:', accuracy , '%')
 # print('Predictions.:', predictions)
