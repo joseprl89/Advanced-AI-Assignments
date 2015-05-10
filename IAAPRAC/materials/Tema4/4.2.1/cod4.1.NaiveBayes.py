@@ -50,7 +50,7 @@ m = list(zip(*train))
 Nk = comptar(m[0])
 
 # Numerador de P(xi|k)
-Nxik = [comptar2(m[1], m[0]) for i in range(1, len(m))]
+Nxik = [ comptar2 (m[ i ] , m[ 0 ] ) for i in range (1 , len (m) ) ]
 
 # Classificacio
 classes = list(map(lambda x: x.pop(0), test))
