@@ -1,6 +1,14 @@
 from PAC3.src.NaiveBayes import naiveBayes;
 from PAC3.src.DecisionTree import decisionTree;
 from PAC3.src.KNN import kNN;
+from PAC3.src.SVM import kernelTypeLinear;
+from PAC3.src.SVM import kernelTypePolynomial;
+from PAC3.src.SVM import kernelTypeRBF;
+from PAC3.src.SVM import kernelTypePrecomputed;
+from PAC3.src.SVM import kernelRBF;
+from PAC3.src.SVM import kernelSetRBF;
+from PAC3.src.SVM import kernelSet;
+from PAC3.src.SVM import svm;
 
 def readData():
     # Load file
@@ -16,7 +24,7 @@ def readData():
     return l;
     
     
-print("RatioToTest, Naive bayes accuracy, Decision tree accuracy, kNNTreeAccuracy")
+print("RatioToTest, Naive bayes accuracy, Decision tree accuracy, kNNTreeAccuracy, SVM Lineal, SVM RBF, SVM RBF SET")
 for ratioToTest in range(2,20):
     ######## Naive bayes 
 
@@ -26,7 +34,7 @@ for ratioToTest in range(2,20):
     # print('naiveBayesAccuracy. :', naiveBayesAccuracy , '%')
     # print('naiveBayesPredictions:', naiveBayesPredictions)
     
-    ######## Decision tree
+    ######## Decision tree
     
     decisionTreeAccuracy,decisionTreePredictions = decisionTree(readData(),ratioToTest=ratioToTest)
     
@@ -34,7 +42,7 @@ for ratioToTest in range(2,20):
     #print('decisionTreeAccuracy:', decisionTreeAccuracy, '%')
     #print('decisionTreePredictions:', decisionTreePredictions)
     
-    ######## kNN
+    ######## kNN
     
     kNNAccuracy,kNNPredictions = kNN(readData(),ratioToTest=ratioToTest);
     
@@ -42,9 +50,15 @@ for ratioToTest in range(2,20):
     #print('kNNTreeAccuracy:', kNNAccuracy, '%')
     #print('kNNPredictions:', kNNPredictions)
     
-    ######## Support vector machine Kernel 1
+    ######## Support vector machine Kernel linear 
+    svm1Accuracy, svm1Predictions = svm(readData(), kernelSet, ratioToTest=2, kernelType=kernelTypeLinear)
     
+    ######## Support vector machine Kernel RBF
+    svm2Accuracy, svm2Predictions = svm(readData(), kernelRBF, ratioToTest=2, kernelType=kernelTypeRBF)
     
-    ######## Support vector machine Kernel 2
+    ######## Support vector machine Kernel RBF SET
+    svm3Accuracy, svm3Predictions = svm(readData(), kernelSetRBF, ratioToTest=2, kernelType=kernelTypeRBF)
     
-    print(ratioToTest,",",naiveBayesAccuracy,",",decisionTreeAccuracy,",", kNNAccuracy)
+    # Print results using CSV format
+    print(ratioToTest,",",naiveBayesAccuracy,",",decisionTreeAccuracy,",", kNNAccuracy,",", svm1Accuracy, ",",svm2Accuracy, ",",svm3Accuracy)
+
