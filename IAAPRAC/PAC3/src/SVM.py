@@ -37,7 +37,7 @@ def kernelSVM(a, b):
                    for key in da.keys() if key in db)
 
 
-def svm(l, kernel, ratioToTest=3, kernelType=4):
+def svm(l, ratioToTest=3, kernel=kernelSet, kernelType=4):
     # Normalize data. All the data must be in the 0..1 range.
     maxRow = [float(v) for v in l[0]]
     for i in range(1, len(l)):
@@ -49,7 +49,7 @@ def svm(l, kernel, ratioToTest=3, kernelType=4):
         for j in range(1,len(maxRow)):
             l[i][j] = float(l[i][j]) / maxRow[j]  
     
-    # Convert the format to the correct one
+    # Convert the format to the correct one
     for i, row in enumerate(l):
         c = l[i][0];
         l[i] = [ str(j) + ':' + str(value) for j,value in enumerate(row) ]

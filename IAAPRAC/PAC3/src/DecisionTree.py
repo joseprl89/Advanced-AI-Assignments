@@ -94,12 +94,3 @@ def decisionTree(l, ratioToTest=3):
                                     zip(*[predictions, classesTest])))) / len(test) * 100;
     
     return accuracy,predictions
-
-# carrega de l'arxiu
-#l = list(map(lambda l: (l.strip()).split(','),
-#            open('../../materials/Tema4/4.4.1/mushroom.data.txt', 'r').readlines()))
-
-#accuracy,predictions = decisionTree(l)
-
-# Nombre de correctes
-#print('Prec.:', accuracy, '%')

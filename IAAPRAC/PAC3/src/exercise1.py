@@ -25,37 +25,22 @@ def readData():
 print("RatioToTest, Naive bayes accuracy, Decision tree accuracy, kNNTreeAccuracy, SVM Lineal, SVM RBF, SVM RBF SET")
 for ratioToTest in range(2,20):
     ######## Naive bayes 
-
     naiveBayesAccuracy, naiveBayesPredictions = naiveBayes(readData(), ratioTests=ratioToTest)
     
-    # Print accuracy and predictions
-    # print('naiveBayesAccuracy. :', naiveBayesAccuracy , '%')
-    # print('naiveBayesPredictions:', naiveBayesPredictions)
-    
     ######## Decision tree
-    
     decisionTreeAccuracy,decisionTreePredictions = decisionTree(readData(),ratioToTest=ratioToTest)
     
-    # Print accuracy and predictions
-    #print('decisionTreeAccuracy:', decisionTreeAccuracy, '%')
-    #print('decisionTreePredictions:', decisionTreePredictions)
-    
     ######## kNN
-    
     kNNAccuracy,kNNPredictions = kNN(readData(),ratioToTest=ratioToTest);
     
-    # Print accuracy and predictions
-    #print('kNNTreeAccuracy:', kNNAccuracy, '%')
-    #print('kNNPredictions:', kNNPredictions)
-    
     ######## Support vector machine Kernel linear 
-    svm1Accuracy, svm1Predictions = svm(readData(), kernelSet, ratioToTest=2, kernelType=kernelTypeLinear)
+    svm1Accuracy, svm1Predictions = svm(readData(), ratioToTest=ratioToTest, kernel=kernelSet, kernelType=kernelTypeLinear)
     
     ######## Support vector machine Kernel RBF
-    svm2Accuracy, svm2Predictions = svm(readData(), kernelRBF, ratioToTest=2, kernelType=kernelTypeRBF)
+    svm2Accuracy, svm2Predictions = svm(readData(), ratioToTest=ratioToTest, kernel=kernelRBF, kernelType=kernelTypeRBF)
     
     ######## Support vector machine Kernel RBF SET
-    svm3Accuracy, svm3Predictions = svm(readData(), kernelSetRBF, ratioToTest=2, kernelType=kernelTypeRBF)
+    svm3Accuracy, svm3Predictions = svm(readData(), ratioToTest=ratioToTest, kernel=kernelSetRBF, kernelType=kernelTypeRBF)
     
     # Print results using CSV format
     print(ratioToTest,",",naiveBayesAccuracy,",",decisionTreeAccuracy,",", kNNAccuracy,",", svm1Accuracy, ",",svm2Accuracy, ",",svm3Accuracy)
