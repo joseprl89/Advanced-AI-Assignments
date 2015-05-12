@@ -41,9 +41,6 @@ def readData():
     
     l = l[1:]
             
-    for row in l:
-        row[0],row[1] = row[1], row[0]
-
     return l;
     
 ratioToTest=3

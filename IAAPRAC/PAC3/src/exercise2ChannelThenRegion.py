@@ -40,6 +40,10 @@ def readData():
             open('../data/Wholesale customers.csv', 'r').readlines()))
     
     l = l[1:]
+
+    for row in l:
+        row[0],row[1] = row[1], row[0]
+
     return l;
     
 ratioToTest=3
