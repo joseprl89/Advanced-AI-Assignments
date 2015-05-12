@@ -1,7 +1,8 @@
-from libsvm.svmutil import *
+
+from svmutil import *
 from time import clock
 
-def kernelVSM(a, b):
+def kernelSVM(a, b):
    la = [(int(k),float(v)) for k, v in (l.split(':') for l in a)]
    lb = [(int(k),float(v)) for k, v in (l.split(':') for l in b)]
    s = 0
@@ -18,13 +19,14 @@ def kernelVSM(a, b):
          j +=1
    return s
 
+
 train = list(map(lambda l: (l.strip()).split(' '),
                  filter(lambda x: x[0] != '#',
                         open('train.dat', 'r').readlines())))
 y=list(map(lambda x: int(x.pop(0)), train))
 
 inici = clock()
-x = [dict([(i+1,kernelVSM(train[i], train[j]))
+x = [dict([(i+1,kernelSVM(train[i], train[j]))
            for i in range(len(train))])
      for j in range(len(train))]
 list(map(lambda l, i: l.update({0:i+1}), x, range(len(x))))
@@ -51,4 +53,5 @@ print("kmt", clock() - inici, "s", len(xt),"x",len(xt[0]))
 inici = clock()
 p_label, p_acc, p_val = svm_predict(yt, xt, model)
 print("predict", clock() - inici, "s")
+
 
