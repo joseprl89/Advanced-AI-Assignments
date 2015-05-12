@@ -2,6 +2,12 @@ from math import exp
 from svmutil import svm_predict, svm_train
 from builtins import range
 
+kernelTypeLinear = 0
+kernelTypePolynomial = 1
+kernelTypeRBF = 2
+kernelTypeSigmoid = 3
+kernelTypePrecomputed = 4
+
 # Kernel Radial Base Function
 def kernelRBF(a, b, gamma=1):
     a = [v.split(':')[0] for v in a]
@@ -31,7 +37,7 @@ def kernelSVM(a, b):
                    for key in da.keys() if key in db)
 
 
-def svm(l, kernel, ratioToTest=3):
+def svm(l, kernel, ratioToTest=3, kernelType=4):
     # Normalize data. All the data must be in the 0..1 range.
     maxRow = [float(v) for v in l[0]]
     for i in range(1, len(l)):
@@ -56,104 +62,26 @@ def svm(l, kernel, ratioToTest=3):
     # construccio del test: 1 de cada ratioToTest
     test = list(map(lambda x: x[1],
                     filter(lambda v: v[0] % ratioToTest == 0, enumerate(l))))
-    
-    # Get only unique classes
-    seen = set()
-    seen_add = seen.add
-    classesTrain = list(map(lambda x: x.pop(0), train))
-    classesTest = list(map(lambda x: x.pop(0), test))
-    
-    # Merge array and get only the uniques
-    classes = classesTrain + classesTest
-    uniqueClasses = [ x for x in classes if not (x in seen or seen_add(x))]
-    
-    # start with accuracy 1
-    resultsPerClass = {}
-    for c in uniqueClasses:
-        trainData = []
-        testData = []
-        
-        # Copy the array and set the class to +1 if it equals the class we try to detect.
-        for i, row in enumerate(train):
-            if l[i][0] == c:
-                c2 = 1
-            else:
-                c2 = -1
-            
-            copyRow = row[:]
-            copyRow[0] = c2
-            trainData.append(copyRow)
 
-        y=list(map(lambda x: int(x.pop(0)), trainData))
+
+    y=list(map(lambda x: int(x.pop(0)), train))
+
+    x = [dict([(i+1,kernel(train[i], train[j]))
+           for i in range(len(train))])
+         for j in range(len(train))]
+
+    list(map(lambda l, i: l.update({0:i+1}), x, range(len(x))))
+
+    model = svm_train(y, x, '-s 0 -t ' + str(kernelType) + ' -q')
     
-        x = [dict([(i+1,kernel(trainData[i], trainData[j]))
-               for i in range(len(trainData))])
-             for j in range(len(trainData))]
+    yt=list(map(lambda x: int(x.pop(0)), test))
     
-        list(map(lambda l, i: l.update({0:i+1}), x, range(len(x))))
+    xt = [dict([(i+1,kernel(test[j], train[i]))
+               for i in range(len(train))])
+         for j in range(len(test))]
+    list(map(lambda l, i: l.update({0:-1}), xt, range(len(xt))))
     
-        model = svm_train(y, x, '-s 0 -t 4 -q')
-        
-        # svm_save_model('model.km.txt', model)
-        
-        # Copy the test array and set the class to +1 if it equals the class we try to detect.
-        for i, row in enumerate(test):
-            if l[i][0] == c:
-                c2 = 1
-            else:
-                c2 = -1
-                
-            testData.append([ value for value in row ])
-            testData[i][0] = c2
-
-        yt=list(map(lambda x: int(x.pop(0)), testData))
-        
-        xt = [dict([(i+1,kernel(testData[j], trainData[i]))
-                   for i in range(len(trainData))])
-             for j in range(len(testData))]
-        list(map(lambda l, i: l.update({0:-1}), xt, range(len(xt))))
-        
-        p_label, p_acc, p_val = svm_predict(yt, xt, model, '-q') # Quiet mode to avoid polluting the output
-        
-        # Store the results per the given class
-        resultsPerClass[c] = p_val
+    p_label, p_acc, p_val = svm_predict(yt, xt, model, '-q') # Quiet mode to avoid polluting the output
     
-    print(uniqueClasses)
-    
-    print (resultsPerClass)
-    
-    # Remove the array with a single element.
-    for key in resultsPerClass:
-        resultsPerClass[key] = [x[0] for x in resultsPerClass[key]]
-
-    print (resultsPerClass)
-    
-    predictions = [None] * len(testData)
-    for clazz, resultsArray in resultsPerClass.items():
-        for i,value in enumerate(resultsArray):
-            if value > 0:
-                if predictions[i] == None:
-                    predictions[i] = clazz
-                    continue
-
-                if value > resultsPerClass[predictions[i]][i]:
-                    predictions[i] = clazz;
-    
-    classesTest = list(map(lambda x: x.pop(0), test))
-    accuracy = len(list(filter(lambda x: x[0] == x[1],
-                               zip(*[predictions, classesTest])))) / len(test) * 100;
-
-    return accuracy, predictions
-
-# Load file
-l = list(map(lambda l: (l.strip()).split(','),
-        open('../data/Wholesale customers.csv', 'r').readlines()))
-
-for row in l:
-    row[1] = row[0] + '' + row[1]
-
-l = [row[1:] for row in l ]
-
-l = l[1:]
-
-print("SVM: ", svm(l, kernelRBF, ratioToTest=4))
+    # Store the results per the given class
+    return p_acc[0], p_label
